@@ -3,7 +3,7 @@ import discord
 intents = discord.Intents.default()
 intents.members = True
 
-TOKEN = 'MTEyODgzMzI4MTY0Nzk3NjQ2OQ.Gbq2IM.6iqnJpliBOsVkwG_HwjkN42OHDpfBFw9EcfECw'
+TOKEN = 'your_token'
 client = discord.Client(intents=intents)
 
 @client.event
@@ -21,13 +21,13 @@ async def on_ready():
 async def add_role_by_badge(member, badge_name):
     guild = member.guild
     badge_roles = {
-        'bug_hunter': 1176098368053846057,
-        'bug_hunter_level_2': 1176099094704427028,
-        'hypesquad': 1176097855174352949,
-        'verified_bot_developer': 1176098556562653224,
-        'discord_certified_moderator': 1176098941352296520,
-        'partner': 1176101875305697280,
-        'early_supporter': 1176086073567354920
+        'bug_hunter': ID_ROLE,
+        'bug_hunter_level_2': ID_ROLE,
+        'hypesquad': ID_ROLE,
+        'verified_bot_developer': ID_ROLE,
+        'discord_certified_moderator': ID_ROLE,
+        'partner': ID_ROLE,
+        'early_supporter': ID_ROLE
     }
     if badge_name in badge_roles:
         role_id = badge_roles[badge_name]
