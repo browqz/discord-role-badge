@@ -1,22 +1,25 @@
 import discord
+import asyncio
 
 intents = discord.Intents.default()
 intents.members = True
 
-TOKEN = 'your_token'
+TOKEN = 'TON_TOKEN'
 client = discord.Client(intents=intents)
 
-@client.event
-async def on_ready():
-    await client.change_presence(activity=discord.Streaming(name='quelamif.net', url="https://www.twitch.tv/browqz"))
-    guild_id = 1168506431964717126
-    guild = client.get_guild(guild_id)
-    
-    if guild:
-        for member in guild.members:
-            user_badges = get_badges(member)
-            for badge in user_badges:
-                await add_role_by_badge(member, badge)
+async def check_badges():
+    await client.wait_until_ready()
+    while not client.is_closed():
+        await asyncio.sleep(10)
+
+        guild_id = 1168506431964717126
+        guild = client.get_guild(guild_id)
+
+        if guild:
+            for member in guild.members:
+                user_badges = get_badges(member)
+                for badge in user_badges:
+                    await add_role_by_badge(member, badge)
 
 async def add_role_by_badge(member, badge_name):
     guild = member.guild
@@ -62,5 +65,11 @@ def get_badges(member):
         badges.append('partner')
 
     return badges
+
+@client.event
+async def on_ready():
+    await client.change_presence(activity=discord.Streaming(name='quelamif.net', url="https://www.twitch.tv/browqz"))
+    print('Bot is ready')
+    client.loop.create_task(check_badges())
 
 client.run(TOKEN)
